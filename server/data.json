@@ -1,0 +1,29 @@
+{
+"profile":{"name":"Pravesh Bahadur Shahi","title":"Aspiring Mobile Application Developer | React Native Developer","location":"Kathmandu, Nepal","email":"shahipravesh36@gmail.com","phone":"9748316680","github":"https://github.com/Pravesh32","linkedin":"https://www.linkedin.com/in/pravesh-bahadur-shahi-4347a0302","summary":"BSc.IT 6th-semester student at Techspire College (Asia Pacific University) with hands-on experience in mobile apps, web technologies, databases and software development. I enjoy building practical, user-focused apps with React Native, Node.js, XAMPP and MySQL, and I'm looking for a first role as a Mobile Application / React Native Developer where I can keep learning on real-world projects."},
+"education":[
+{"school":"Techspire College, affiliated with Asia Pacific University","degree":"BSc.IT","period":"2023-2026"},
+{"school":"Goldengate International College","degree":"+2 Science (Biology)","period":"2020-2022"},
+{"school":"Tribhuvan Model Secondary School","degree":"SEE","period":"2020"}],
+"skills":[
+{"group":"Mobile & App Development","items":["React Native","JavaScript","Node.js","Mobile UI","REST API Integration","App Navigation","AsyncStorage","Responsive Interfaces"]},
+{"group":"Programming Languages","items":["JavaScript","Python","Java","C","C#"]},
+{"group":"Web Technologies","items":["HTML","CSS","JavaScript",".NET"]},
+{"group":"Database & Backend","items":["MySQL","XAMPP","SQL Server","SQL","Database Design","Database Relationships"]},
+{"group":"Design & Prototyping","items":["Figma","Canva","UI/UX Prototyping","Interface Design"]},
+{"group":"Tools & Software","items":["VS Code","Git/GitHub","Word","Excel","PowerPoint"]},
+{"group":"Software Engineering","items":["System Analysis & Design","Agile Principles","Development Methodologies","Requirements Analysis","Network Design","Object-Oriented Programming"]}],
+"projects":[
+{"title":"MindEase: Personalized Mental Health App","tech":["React Native","Node.js","XAMPP","MySQL"],"description":"A mobile app that helps users reduce stress and improve well-being, built around personalization instead of gamification.","points":["Registration, login and mood tracking","Node.js API with MySQL storage","Dynamic screens, navigation and personalized content"]},
+{"title":"Tour & Travels E-Commerce System","tech":["C#",".NET","SQL Server"],"description":"An academic e-commerce system for tours and travel.","points":["Application structure and UI design","Travel data operations in SQL Server","Object-oriented design"]},
+{"title":"HRM System","tech":["Java","Java RMI"],"description":"A Human Resource Management system using client-server communication.","points":["Java RMI client-server communication","HR information management","Distributed application concepts"]},
+{"title":"Food Delivery Application","tech":["Java"],"description":"An academic food ordering application.","points":["Food ordering functionality","Core logic and ordering workflows in Java"]},
+{"title":"Admin Menu System","tech":["Python"],"description":"A menu-driven administrative application.","points":["Menu-driven functionality","Conditional logic and data handling"]},
+{"title":"Voting System","tech":["C"],"description":"A voting system written in C.","points":["Recording and processing votes","Control structures and programming fundamentals"]},
+{"title":"Votify: UI/UX Prototype","tech":["Figma"],"description":"An interactive prototype for a digital voting app.","points":["User flows and interactive prototypes","Simple, user-friendly voting experience"]},
+{"title":"TU Online Library Database","tech":["SQL"],"description":"A database concept for an online library for Tribhuvan University.","points":["Table structures and relationships","SQL queries for library information"]},
+{"title":"IT Company Floor & Network Design","tech":["Networking","Network Design"],"description":"Floor layout and network infrastructure for an IT company.","points":["Connectivity between departments","Topology and infrastructure planning"]},
+{"title":"Learning Management System: Analysis & Design","tech":["System Analysis","Modeling"],"description":"System analysis and design for a Learning Management System.","points":["Requirements, users and functions","Process and workflow design"]},
+{"title":"Software Methodologies & Agile Project","tech":["Agile","Project Planning"],"description":"Methodology study applied to an IT company scenario.","points":["Compared development methodologies","Applied Agile and iterative development"]}],
+"strengths":["Mobile Application Development","Problem Solving","Logical Thinking","Database Management","UI/UX Design","Software Development","System Analysis","Team Collaboration","Quick Learning","Project-Based Learning"],
+"languages":["Nepali (native)","English (professional working proficiency)"]
+}
