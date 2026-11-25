@@ -96,6 +96,37 @@ function build(d) {
   const add = (g, m, x, y, z) => { const o = new THREE.Mesh(g, m); o.position.set(x, y, z); return o; };
   const car = { x: 0, z: 0, h: Math.PI, speed: 0 };
 
+  // Image helpers: draw a public/ image onto a canvas texture, removing its background.
+  const keyed = (url, W, H, fn) => {
+    const c = document.createElement('canvas'); c.width = W; c.height = H;
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+    const im = new Image(); im.onload = () => { fn(c.getContext('2d'), im, W, H); t.needsUpdate = true; }; im.src = BASE + url;
+    return t;
+  };
+  const spriteMat = (t) => new THREE.SpriteMaterial({ map: t, transparent: true, depthWrite: false, fog: false });
+  const shipKey = (x, im, W, H) => {
+    x.drawImage(im, 0, 0, W, H);
+    const p = x.getImageData(0, 0, W, H), a = p.data, r0 = a[0], g0 = a[1], b0 = a[2];
+    for (let i = 0; i < a.length; i += 4) a[i + 3] = clamp((Math.hypot(a[i] - r0, a[i + 1] - g0, a[i + 2] - b0) - 25) / 35, 0, 1) * 255;
+    x.putImageData(p, 0, 0);
+  };
+  const cometKey = (x, im, W, H) => {
+    x.drawImage(im, 0, 0, W, H);
+    const p = x.getImageData(0, 0, W, H), a = p.data;
+    for (let i = 0; i < a.length; i += 4) a[i + 3] = clamp((a[i] - a[i + 2] + 10) / 60, 0, 1) * 255;
+    x.putImageData(p, 0, 0);
+  };
+  const cometMat = spriteMat(keyed('comet.png', 240, 427, cometKey));
+  // Crops from planets.jpg: [centre x, centre y, radius] as fractions of the image width/height. Tweak to pick other planets.
+  const PLANET_CROPS = [[0.235, 0.43, 0.12], [0.37, 0.14, 0.07], [0.44, 0.62, 0.07], [0.84, 0.54, 0.08], [0.10, 0.22, 0.06]];
+  const planetTex = ([fx, fy, fr]) => keyed('planets.jpg', 256, 256, (x, im) => {
+    const w = im.width, h = im.height, S = fr * w;
+    x.drawImage(im, fx * w - S, fy * h - S, S * 2, S * 2, 0, 0, 256, 256);
+    const g = x.createRadialGradient(128, 128, 80, 128, 128, 128);
+    g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    x.globalCompositeOperation = 'destination-in'; x.fillStyle = g; x.fillRect(0, 0, 256, 256);
+  });
+
   // Spaceship (nose points along +z, like the old car).
   const rig = new THREE.Group(), body = new THREE.Group(), wheels = [];
   const flame = add(new THREE.ConeGeometry(0.3, 1.6, 8).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xff9a5c }), 0, 1.2, -2.2);
@@ -103,6 +134,10 @@ function build(d) {
     add(new THREE.BoxGeometry(3.4, 0.1, 1.1), std(0xff7eb6), 0, 1.1, -0.7),
     add(new THREE.SphereGeometry(0.35, 12, 8), new THREE.MeshBasicMaterial({ color: 0x8ea2ff }), 0, 1.5, 0.2), flame);
   rig.add(body); scene.add(rig);
+  // Your spaceship image (public/spaceship.png) replaces the 3D ship.
+  const shipTex = keyed('spaceship.png', 256, 256, (x, im, W, H) => { shipKey(x, im, W, H); body.visible = false; });
+  const ship = new THREE.Sprite(spriteMat(shipTex)); ship.scale.set(9, 9, 1); scene.add(ship);
+  let face = 1;
 
   // Asteroids as obstacles.
   const obstacles = [], rocks = [], rockMat = std(0x5a5f8a);
@@ -110,9 +145,9 @@ function build(d) {
   while (obstacles.length < 40 && tries++ < 600) {
     const x = (Math.random() - 0.5) * 108, z = (Math.random() - 0.5) * 108;
     if (Math.hypot(x, z) < 9 || Math.hypot(x, z + 12) < 7 || ZONES.some((q) => Math.hypot(x - q.x, z - q.z) < 9) || obstacles.some((o) => Math.hypot(x - o.x, z - o.z) < 4)) continue;
-    const s = 0.8 + Math.random() * 1.2, r = add(new THREE.IcosahedronGeometry(1, 0), rockMat, x, 1.5 + Math.random() * 2, z);
-    r.scale.set(s, s * (0.7 + Math.random() * 0.5), s); scene.add(r);
-    rocks.push(r); obstacles.push({ x, z, r: s });
+    const s = 0.8 + Math.random() * 1.2, r = new THREE.Sprite(cometMat);
+    r.position.set(x, 2.5 + Math.random() * 2, z); r.scale.set(s * 3.2, s * 5.7, 1); r.userData.y = r.position.y; scene.add(r);
+    rocks.push(r); obstacles.push({ x, z, r: s * 0.9 });
   }
 
   // Home planet: your Earth image (client/public/earth.jpg), cropped to the globe and faded into space.
@@ -155,7 +190,8 @@ function build(d) {
     const m = (o) => new THREE.MeshBasicMaterial({ color: z.c, transparent: true, side: THREE.DoubleSide, depthWrite: false, ...o });
     const ring = new THREE.Mesh(new THREE.RingGeometry(3.6, 4.4, 48).rotateX(-Math.PI / 2), m({ opacity: 0.9 }));
     const disc = new THREE.Mesh(new THREE.CircleGeometry(3.6, 48).rotateX(-Math.PI / 2), m({ opacity: 0.12 }));
-    const planet = add(new THREE.IcosahedronGeometry(2, 2), std(z.c), 0, 4, 0);
+    const planet = new THREE.Sprite(spriteMat(planetTex(PLANET_CROPS[i % PLANET_CROPS.length])));
+    planet.scale.set(9, 9, 1); planet.position.y = 4.4;
     const orbit = new THREE.Mesh(new THREE.RingGeometry(3.2, 3.35, 64).rotateX(-1.2), m({ opacity: 0.55 })); orbit.position.y = 4;
     const cv = document.createElement('canvas'); cv.width = 512; cv.height = 128;
     const cx = cv.getContext('2d'); cx.fillStyle = '#f1efe9'; cx.font = '700 58px Syne, sans-serif'; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.fillText(TITLES[z.k], 256, 64);
@@ -164,7 +200,7 @@ function build(d) {
     const g = new THREE.Group(); ring.position.y = disc.position.y = 0.04;
     g.add(ring, disc, planet, orbit, label); g.position.set(z.x, 0, z.z); scene.add(g);
     if (!reduce) {
-      gsap.to(planet.rotation, { y: 6.283, duration: 18 + i * 3, repeat: -1, ease: 'none' });
+      gsap.to(planet.position, { y: 5, duration: 2.5 + i * 0.4, yoyo: true, repeat: -1, ease: 'sine.inOut' });
       gsap.to(orbit.rotation, { y: 6.283, duration: 12, repeat: -1, ease: 'none' });
       gsap.to(ring.scale, { x: 1.1, z: 1.1, duration: 1.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
     }
@@ -249,7 +285,11 @@ function build(d) {
     }
     setEngine(car.speed);
     flame.scale.set(1, 1, 0.2 + (Math.abs(car.speed) / 18) * 1.6);
-    rocks.forEach((r) => { r.rotation.x += dt * 0.2; r.rotation.y += dt * 0.3; });
+    const tt = clock.elapsedTime;
+    rocks.forEach((r, i) => { r.position.y = r.userData.y + Math.sin(tt * 0.8 + i) * 0.35; });
+    if (st) face += ((st < 0 ? -1 : 1) - face) * Math.min(1, dt * 8);
+    ship.scale.x = 9 * face; ship.position.set(car.x, 2 + Math.sin(tt * 2.2) * 0.25, car.z);
+    ship.material.rotation = -st * 0.25 * Math.sign(face) * Math.min(1, Math.abs(car.speed) / 8);
     rig.position.set(car.x, 0, car.z); rig.rotation.y = car.h;
     body.rotation.z = -st * Math.abs(car.speed) * 0.004;
     wheels.forEach((w) => { w.rotation.x += car.speed * dt * 2.2; });
