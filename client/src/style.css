@@ -38,3 +38,6 @@ article ul { padding-left: 1.1rem; color: var(--muted); font-size: .9rem; }
   .hud p, .jump { display: none; }
   #panel { top: auto; left: .8rem; right: .8rem; bottom: .8rem; width: auto; max-height: 48vh; }
 }
+.me { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 1rem; display: block; }
+.shot { width: 100%; border-radius: 10px; border: 1px solid var(--line); margin: .3rem 0 .6rem; }
+.sndbtn { right: 10.6rem; }
