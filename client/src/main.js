@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import gsap from 'gsap';
 import './style.css';
+import { initAudio, setEngine, sfx, toggleMute } from './sound.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const tags = (a) => `<div class="tags">${a.map((t) => `<span>${esc(t)}</span>`).join('')}</div>`;
@@ -8,6 +9,10 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarse = matchMedia('(pointer: coarse)').matches;
 const $ = (id) => document.getElementById(id);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const BASE = import.meta.env.BASE_URL;
+// Put screenshots in client/public/shots/ using these file names (project title -> file).
+const SHOTS = { 'MindEase: Personalized Mental Health App': 'mindease.png', 'Votify: UI/UX Prototype': 'votify.png' };
+const shot = (t) => (SHOTS[t] ? `<img class="shot" src="${BASE}shots/${SHOTS[t]}" alt="Screenshot of ${esc(t)}" loading="lazy" onerror="this.remove()">` : '');
 
 const TITLES = { about: 'About me', education: 'Education', skills: 'Skills and knowledge', projects: 'Projects', contact: "Let's work together" };
 const ZONES = [
@@ -21,7 +26,7 @@ const ZONES = [
 async function load() {
   const api = import.meta.env.VITE_API_URL || '';
   try {
-    const r = await fetch(api + '/api/portfolio');
+    const r = await fetch(api + '/api/portfolio', { signal: AbortSignal.timeout(4000) });
     if (r.ok) return await r.json();
   } catch {}
   return (await fetch(import.meta.env.BASE_URL + 'portfolio.json')).json();
@@ -30,10 +35,10 @@ async function load() {
 function section(k, d) {
   const p = d.profile;
   const body = {
-    about: () => `<p>${esc(p.summary)}</p>${tags(d.strengths)}`,
+    about: () => `<img class="me" src="${BASE}me.jpg" alt="Pravesh Bahadur Shahi" width="96" height="96" onerror="this.remove()"><p>${esc(p.summary)}</p>${tags(d.strengths)}`,
     education: () => d.education.map((e) => `<div class="row"><b>${esc(e.degree)}</b><span>${esc(e.school)}</span><em>${esc(e.period)}</em></div>`).join(''),
     skills: () => d.skills.map((g) => `<div class="group"><h3>${esc(g.group)}</h3>${tags(g.items)}</div>`).join(''),
-    projects: () => d.projects.map((x) => `<article><h3>${esc(x.title)}</h3>${tags(x.tech)}<p>${esc(x.description)}</p><ul>${x.points.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></article>`).join(''),
+    projects: () => d.projects.map((x) => `<article><h3>${esc(x.title)}</h3>${shot(x.title)}${tags(x.tech)}<p>${esc(x.description)}</p><ul>${x.points.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></article>`).join(''),
     contact: () => `<p>${esc(d.languages.join(' / '))}</p><div class="links"><a href="mailto:${esc(p.email)}">${esc(p.email)}</a><a href="tel:${esc(p.phone)}">${esc(p.phone)}</a><a href="${esc(p.github)}" target="_blank" rel="noopener">GitHub</a><a href="${esc(p.linkedin)}" target="_blank" rel="noopener">LinkedIn</a></div>`,
   }[k]();
   return `<h2>${TITLES[k]}</h2>${body}`;
@@ -49,9 +54,9 @@ async function main() {
   await document.fonts.load('700 64px Syne').catch(() => {});
   const p = d.profile;
   $('app').innerHTML = `
-    <div class="hud"><b>${esc(p.name)}</b><span>${esc(p.title)}</span><p>${coarse ? 'Drag on the screen to drive' : 'Drive with WASD or the arrow keys. Space brakes.'}<br>Roll into a glowing ring to open it.</p></div>
+    <div class="hud"><b>${esc(p.name)}</b><span>${esc(p.title)}</span><p>${coarse ? 'Drag on the screen to fly' : 'Fly with WASD or the arrow keys. Space brakes, H beeps.'}<br>Fly into a glowing ring to open it.</p></div>
     <nav class="jump" aria-label="Jump to a section">${ZONES.map((z) => `<button data-k="${z.k}">${TITLES[z.k]}</button>`).join('')}</nav>
-    <button class="readbtn" id="readbtn">Read as a page</button>
+    <button class="readbtn sndbtn" id="sndbtn">Sound on</button><button class="readbtn" id="readbtn">Read as a page</button>
     <aside id="panel" hidden aria-live="polite"></aside>
     <div id="read" hidden role="dialog" aria-label="Portfolio as a page"><button class="x" id="readx" aria-label="Close">×</button>${ZONES.map((z) => `<section>${section(z.k, d)}</section>`).join('')}</div>`;
   const world = build(d);
@@ -67,61 +72,101 @@ function build(d) {
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0a0e27);
-  scene.fog = new THREE.Fog(0x0a0e27, 40, 115);
+  scene.background = new THREE.Color(0x02030a);
+  scene.fog = new THREE.Fog(0x02030a, 90, 240);
   const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 300);
   camera.position.set(0, 70, 40);
   const resize = () => { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); };
   addEventListener('resize', resize); resize();
 
-  scene.add(new THREE.HemisphereLight(0x9fb0ff, 0x0a0e27, 1.1));
-  const sun = new THREE.DirectionalLight(0xffffff, 1.6);
-  sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024);
-  Object.assign(sun.shadow.camera, { left: -32, right: 32, top: 32, bottom: -32, far: 90 });
+  scene.add(new THREE.HemisphereLight(0xaab8ff, 0x1a1030, 1.2));
+  const sun = new THREE.DirectionalLight(0xfff1dd, 2.2);
+  sun.position.set(30, 40, 20);
   scene.add(sun, sun.target);
 
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(130, 130).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x0e1230 }));
-  ground.receiveShadow = true;
-  const grid = new THREE.GridHelper(120, 60, 0x2c3680, 0x1a2052); grid.position.y = 0.02;
-  scene.add(ground, grid);
+  // Two star layers (dim far, bright near) so the sky slides past as you fly.
+  const stars = (n, size, color, spread) => {
+    const a = new Float32Array(n * 3).map((_, i) => (Math.random() - 0.5) * (i % 3 === 1 ? 90 : spread));
+    scene.add(new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(a, 3)), new THREE.PointsMaterial({ size, color, fog: false })));
+  };
+  stars(4000, 0.35, 0xffffff, 300); stars(1200, 0.7, 0x9fb4ff, 160);
 
-  const std = (c) => new THREE.MeshStandardMaterial({ color: c, flatShading: true, roughness: 0.8 });
+  const std = (c) => new THREE.MeshStandardMaterial({ color: c, flatShading: true, roughness: 0.7 });
+  const add = (g, m, x, y, z) => { const o = new THREE.Mesh(g, m); o.position.set(x, y, z); return o; };
   const car = { x: 0, z: 0, h: Math.PI, speed: 0 };
-  const rig = new THREE.Group(), body = new THREE.Group();
-  const add = (g, m, x, y, z) => { const o = new THREE.Mesh(g, m); o.position.set(x, y, z); o.castShadow = true; return o; };
-  body.add(add(new THREE.BoxGeometry(1.9, 0.7, 3.6), std(0xff7eb6), 0, 0.75, 0), add(new THREE.BoxGeometry(1.5, 0.55, 1.7), std(0x8ea2ff), 0, 1.35, -0.2));
-  [-0.6, 0.6].forEach((x) => body.add(add(new THREE.BoxGeometry(0.4, 0.2, 0.1), new THREE.MeshBasicMaterial({ color: 0xfff3c4 }), x, 0.8, 1.8)));
-  const wheels = [];
-  [[-1, 1.15], [1, 1.15], [-1, -1.15], [1, -1.15]].forEach(([x, z]) => {
-    const w = add(new THREE.CylinderGeometry(0.45, 0.45, 0.35, 14).rotateZ(Math.PI / 2), std(0x15183a), x, 0.45, z);
-    wheels.push(w); rig.add(w);
-  });
+
+  // Spaceship (nose points along +z, like the old car).
+  const rig = new THREE.Group(), body = new THREE.Group(), wheels = [];
+  const flame = add(new THREE.ConeGeometry(0.3, 1.6, 8).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xff9a5c }), 0, 1.2, -2.2);
+  body.add(add(new THREE.ConeGeometry(0.8, 3, 4).rotateX(Math.PI / 2), std(0xe8ecff), 0, 1.2, 0),
+    add(new THREE.BoxGeometry(3.4, 0.1, 1.1), std(0xff7eb6), 0, 1.1, -0.7),
+    add(new THREE.SphereGeometry(0.35, 12, 8), new THREE.MeshBasicMaterial({ color: 0x8ea2ff }), 0, 1.5, 0.2), flame);
   rig.add(body); scene.add(rig);
 
-  const obstacles = [];
-  const tree = std(0x4b5bd6), trunk = std(0x2b2f66);
+  // Asteroids as obstacles.
+  const obstacles = [], rocks = [], rockMat = std(0x5a5f8a);
   let tries = 0;
-  while (obstacles.length < 45 && tries++ < 600) {
+  while (obstacles.length < 40 && tries++ < 600) {
     const x = (Math.random() - 0.5) * 108, z = (Math.random() - 0.5) * 108;
-    if (Math.hypot(x, z) < 9 || ZONES.some((q) => Math.hypot(x - q.x, z - q.z) < 9) || obstacles.some((o) => Math.hypot(x - o.x, z - o.z) < 4)) continue;
-    const s = 0.8 + Math.random() * 0.8, t = new THREE.Group();
-    t.add(add(new THREE.CylinderGeometry(0.25, 0.3, 1.2, 6), trunk, 0, 0.6, 0), add(new THREE.ConeGeometry(1.3, 3.2, 7), tree, 0, 2.7, 0));
-    t.position.set(x, 0, z); t.scale.setScalar(s); scene.add(t);
-    obstacles.push({ x, z, r: 1.0 * s });
+    if (Math.hypot(x, z) < 9 || Math.hypot(x, z + 12) < 7 || ZONES.some((q) => Math.hypot(x - q.x, z - q.z) < 9) || obstacles.some((o) => Math.hypot(x - o.x, z - o.z) < 4)) continue;
+    const s = 0.8 + Math.random() * 1.2, r = add(new THREE.IcosahedronGeometry(1, 0), rockMat, x, 1.5 + Math.random() * 2, z);
+    r.scale.set(s, s * (0.7 + Math.random() * 0.5), s); scene.add(r);
+    rocks.push(r); obstacles.push({ x, z, r: s });
   }
 
-  ZONES.forEach((z) => {
+  // Home planet: your Earth image (client/public/earth.jpg), cropped to the globe and faded into space.
+  const ec = document.createElement('canvas'); ec.width = ec.height = 512;
+  const etex = new THREE.CanvasTexture(ec); etex.colorSpace = THREE.SRGBColorSpace;
+  const earth = new THREE.Sprite(new THREE.SpriteMaterial({ map: etex, transparent: true, depthWrite: false, fog: false }));
+  earth.scale.set(30, 30, 1); earth.position.set(-20, 6, -62); scene.add(earth);
+  const eimg = new Image();
+  eimg.onload = () => {
+    const x = ec.getContext('2d'), w = eimg.width, h = eimg.height, S = w * 0.2 * 1.5;
+    x.drawImage(eimg, w * 0.5 - S, h * 0.5 - S, S * 2, S * 2, 0, 0, 512, 512);
+    const g = x.createRadialGradient(256, 256, 200, 256, 256, 256);
+    g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    x.globalCompositeOperation = 'destination-in'; x.fillStyle = g; x.fillRect(0, 0, 512, 512);
+    etex.needsUpdate = true;
+  };
+  eimg.src = BASE + 'earth.jpg';
+  if (!reduce) gsap.to(earth.scale, { x: 31.5, y: 31.5, duration: 4, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+
+  // Floating photo card at the start (client/public/me.jpg).
+  const bc = document.createElement('canvas'); bc.width = 512; bc.height = 640;
+  const bx = bc.getContext('2d'), btex = new THREE.CanvasTexture(bc); btex.colorSpace = THREE.SRGBColorSpace;
+  const paint = (img) => {
+    bx.clearRect(0, 0, 512, 640);
+    bx.fillStyle = 'rgba(12,16,56,.92)'; bx.beginPath(); bx.roundRect(8, 8, 496, 624, 40); bx.fill();
+    bx.strokeStyle = '#8ea2ff'; bx.lineWidth = 6; bx.stroke();
+    if (img) { bx.save(); bx.beginPath(); bx.arc(256, 230, 170, 0, 7); bx.clip(); const s = Math.max(340 / img.width, 340 / img.height); bx.drawImage(img, 256 - (img.width * s) / 2, 230 - (img.height * s) / 2, img.width * s, img.height * s); bx.restore(); }
+    bx.textAlign = 'center'; bx.fillStyle = '#f1efe9'; bx.font = '700 54px Syne, sans-serif'; bx.fillText("Hi, I'm Pravesh", 256, 500);
+    bx.fillStyle = '#8ea2ff'; bx.font = '400 30px Manrope, sans-serif'; bx.fillText('React Native developer', 256, 550); bx.fillText('Fly on. Press H for a beep.', 256, 595);
+    btex.needsUpdate = true;
+  };
+  paint();
+  const me = new Image(); me.onload = () => paint(me); me.src = BASE + 'me.jpg';
+  const board = new THREE.Mesh(new THREE.PlaneGeometry(6, 7.5), new THREE.MeshBasicMaterial({ map: btex, transparent: true }));
+  board.position.set(0, 6, -12); scene.add(board);
+  if (!reduce) gsap.to(board.position, { y: 6.8, duration: 2.5, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+
+  // Each section is a planet inside a glowing landing ring.
+  ZONES.forEach((z, i) => {
     const m = (o) => new THREE.MeshBasicMaterial({ color: z.c, transparent: true, side: THREE.DoubleSide, depthWrite: false, ...o });
     const ring = new THREE.Mesh(new THREE.RingGeometry(3.6, 4.4, 48).rotateX(-Math.PI / 2), m({ opacity: 0.9 }));
     const disc = new THREE.Mesh(new THREE.CircleGeometry(3.6, 48).rotateX(-Math.PI / 2), m({ opacity: 0.12 }));
-    const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 12, 8), m({ opacity: 0.5 }));
+    const planet = add(new THREE.IcosahedronGeometry(2, 2), std(z.c), 0, 4, 0);
+    const orbit = new THREE.Mesh(new THREE.RingGeometry(3.2, 3.35, 64).rotateX(-1.2), m({ opacity: 0.55 })); orbit.position.y = 4;
     const cv = document.createElement('canvas'); cv.width = 512; cv.height = 128;
     const cx = cv.getContext('2d'); cx.fillStyle = '#f1efe9'; cx.font = '700 58px Syne, sans-serif'; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.fillText(TITLES[z.k], 256, 64);
     const label = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, fog: false }));
-    label.scale.set(9, 2.25, 1); label.position.y = 8;
-    const g = new THREE.Group(); beam.position.y = 6; ring.position.y = disc.position.y = 0.04;
-    g.add(ring, disc, beam, label); g.position.set(z.x, 0, z.z); scene.add(g);
-    if (!reduce) gsap.to(ring.scale, { x: 1.1, z: 1.1, duration: 1.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    label.scale.set(9, 2.25, 1); label.position.y = 8.6;
+    const g = new THREE.Group(); ring.position.y = disc.position.y = 0.04;
+    g.add(ring, disc, planet, orbit, label); g.position.set(z.x, 0, z.z); scene.add(g);
+    if (!reduce) {
+      gsap.to(planet.rotation, { y: 6.283, duration: 18 + i * 3, repeat: -1, ease: 'none' });
+      gsap.to(orbit.rotation, { y: 6.283, duration: 12, repeat: -1, ease: 'none' });
+      gsap.to(ring.scale, { x: 1.1, z: 1.1, duration: 1.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    }
   });
 
   const panel = $('panel');
@@ -131,22 +176,24 @@ function build(d) {
     active = z;
     if (z) {
       panel.innerHTML = `<button class="x" aria-label="Close">×</button>${section(z.k, d)}`;
-      panel.hidden = false; panel.scrollTop = 0;
+      panel.hidden = false; panel.scrollTop = 0; sfx.chime();
       gsap.fromTo(panel, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: reduce ? 0 : 0.5 });
     } else gsap.to(panel, { opacity: 0, duration: reduce ? 0 : 0.3, onComplete: () => { if (!active) panel.hidden = true; } });
   }
   panel.addEventListener('click', (e) => { if (e.target.closest('.x')) panel.hidden = true; });
 
   const jump = (z) => { car.speed = 0; gsap.to(car, { x: z.x, z: z.z + 8, h: Math.PI, duration: reduce ? 0 : 1.2, ease: 'power2.inOut' }); };
-  document.querySelectorAll('.jump button').forEach((b) => b.addEventListener('click', () => jump(ZONES.find((z) => z.k === b.dataset.k))));
+  document.querySelectorAll('.jump button').forEach((b) => b.addEventListener('click', () => { sfx.click(); jump(ZONES.find((z) => z.k === b.dataset.k)); }));
   const read = $('read');
+  ['keydown', 'pointerdown'].forEach((n) => addEventListener(n, initAudio, { once: true }));
+  $('sndbtn').addEventListener('click', () => { initAudio(); $('sndbtn').textContent = toggleMute() ? 'Sound off' : 'Sound on'; });
   $('readbtn').addEventListener('click', () => { read.hidden = false; read.scrollTop = 0; $('readx').focus(); });
   const closeRead = () => { read.hidden = true; $('readbtn').focus(); };
   $('readx').addEventListener('click', closeRead);
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && !read.hidden) closeRead(); });
 
   const keys = {}; let touch = null;
-  addEventListener('keydown', (e) => { keys[e.code] = true; if (e.target === document.body && (e.code === 'Space' || e.code.startsWith('Arrow'))) e.preventDefault(); });
+  addEventListener('keydown', (e) => { if (e.code === 'KeyH' && !e.repeat) sfx.honk(); keys[e.code] = true; if (e.target === document.body && (e.code === 'Space' || e.code.startsWith('Arrow'))) e.preventDefault(); });
   addEventListener('keyup', (e) => { keys[e.code] = false; });
   const cvs = $('bg');
   cvs.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') touch = { x: e.clientX, y: e.clientY, dx: 0, dy: 0 }; });
@@ -171,8 +218,11 @@ function build(d) {
     car.x = clamp(car.x, -55, 55); car.z = clamp(car.z, -55, 55);
     for (const o of obstacles) {
       const dx = car.x - o.x, dz = car.z - o.z, dist = Math.hypot(dx, dz), min = o.r + 1.3;
-      if (dist < min && dist > 0) { car.x += (dx / dist) * (min - dist); car.z += (dz / dist) * (min - dist); car.speed *= 0.6; }
+      if (dist < min && dist > 0) { if (Math.abs(car.speed) > 4) sfx.bump(); car.x += (dx / dist) * (min - dist); car.z += (dz / dist) * (min - dist); car.speed *= 0.6; }
     }
+    setEngine(car.speed);
+    flame.scale.set(1, 1, 0.2 + (Math.abs(car.speed) / 18) * 1.6);
+    rocks.forEach((r) => { r.rotation.x += dt * 0.2; r.rotation.y += dt * 0.3; });
     rig.position.set(car.x, 0, car.z); rig.rotation.y = car.h;
     body.rotation.z = -st * Math.abs(car.speed) * 0.004;
     wheels.forEach((w) => { w.rotation.x += car.speed * dt * 2.2; });
@@ -180,6 +230,7 @@ function build(d) {
     const fx = Math.sin(car.h), fz = Math.cos(car.h);
     cam.set(car.x - fx * 11, 7.5, car.z - fz * 11);
     camera.position.lerp(cam, 1 - Math.exp(-dt * 3));
+    camera.fov = 55 + (Math.abs(car.speed) / 18) * 14; camera.updateProjectionMatrix();
     camera.lookAt(car.x + fx * 3, 1, car.z + fz * 3);
     setActive(ZONES.find((z) => Math.hypot(car.x - z.x, car.z - z.z) < 4.4) || null);
     renderer.render(scene, camera);
