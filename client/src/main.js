@@ -11,7 +11,7 @@ const $ = (id) => document.getElementById(id);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const BASE = import.meta.env.BASE_URL;
 // Put screenshots in client/public/shots/ using these file names (project title -> file).
-const SHOTS = { 'MindEase: Personalized Mental Health App': 'mindease.png', 'Votify: UI/UX Prototype': 'votify.png' };
+const SHOTS = { 'The Explorer - 3D Exploration Game': 'explorer.png', '3D Developer Portfolio': 'portfolio.png', 'MindEase - Personalized Mental Health App': 'mindease.png' };
 const shot = (t) => (SHOTS[t] ? `<img class="shot" src="${BASE}shots/${SHOTS[t]}" alt="Screenshot of ${esc(t)}" loading="lazy" onerror="this.remove()">` : '');
 
 const TITLES = { about: 'About me', education: 'Education', skills: 'Skills and knowledge', projects: 'Projects', contact: "Let's work together" };
