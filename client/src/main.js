@@ -140,7 +140,7 @@ function build(d) {
     bx.strokeStyle = '#8ea2ff'; bx.lineWidth = 6; bx.stroke();
     if (img) { bx.save(); bx.beginPath(); bx.arc(256, 230, 170, 0, 7); bx.clip(); const s = Math.max(340 / img.width, 340 / img.height); bx.drawImage(img, 256 - (img.width * s) / 2, 230 - (img.height * s) / 2, img.width * s, img.height * s); bx.restore(); }
     bx.textAlign = 'center'; bx.fillStyle = '#f1efe9'; bx.font = '700 54px Syne, sans-serif'; bx.fillText("Hi, I'm Pravesh", 256, 500);
-    bx.fillStyle = '#8ea2ff'; bx.font = '400 30px Manrope, sans-serif'; bx.fillText('React Native developer', 256, 550); bx.fillText('Fly on. Press H for a beep.', 256, 595);
+    bx.fillStyle = '#8ea2ff'; bx.font = '400 26px Manrope, sans-serif'; bx.fillText('BSc.IT student | Software Engineer', 256, 550); bx.fillText('Fly on. Press H for a beep.', 256, 595);
     btex.needsUpdate = true;
   };
   paint();
