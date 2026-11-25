@@ -70,7 +70,7 @@ async function main() {
 
 function build(d) {
   const renderer = new THREE.WebGLRenderer({ canvas: $('bg'), antialias: true, alpha: true });
-  $('bg').style.background = `#050a1f url(${BASE}star.jpg) center / cover no-repeat`;
+  $('bg').style.background = `#050a1f url(${BASE}star.jpg) center top / cover no-repeat`;
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
   const scene = new THREE.Scene();
@@ -86,11 +86,14 @@ function build(d) {
   scene.add(sun, sun.target);
 
   // Two star layers (dim far, bright near) so the sky slides past as you fly.
+  const dc = document.createElement('canvas'); dc.width = dc.height = 32;
+  const dx = dc.getContext('2d'); dx.fillStyle = '#fff'; dx.beginPath(); dx.arc(16, 16, 15, 0, 7); dx.fill();
+  const dot = new THREE.CanvasTexture(dc);
   const stars = (n, size, color, spread) => {
     const a = new Float32Array(n * 3).map((_, i) => (Math.random() - 0.5) * (i % 3 === 1 ? 90 : spread));
-    scene.add(new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(a, 3)), new THREE.PointsMaterial({ size, color, fog: false })));
+    scene.add(new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(a, 3)), new THREE.PointsMaterial({ size, color, fog: false, map: dot, alphaTest: 0.4, transparent: true, sizeAttenuation: false })));
   };
-  stars(4000, 0.35, 0xffffff, 300); stars(1200, 0.7, 0x9fb4ff, 160);
+  stars(1800, 1.6, 0xffffff, 300); stars(500, 2.4, 0x9fb4ff, 160);
 
   const std = (c) => new THREE.MeshStandardMaterial({ color: c, flatShading: true, roughness: 0.7 });
   const add = (g, m, x, y, z) => { const o = new THREE.Mesh(g, m); o.position.set(x, y, z); return o; };
@@ -136,18 +139,18 @@ function build(d) {
   rig.add(body); scene.add(rig);
   // Your spaceship image (public/spaceship.png) replaces the 3D ship.
   const shipTex = keyed('spaceship.png', 256, 256, (x, im, W, H) => { shipKey(x, im, W, H); body.visible = false; });
-  const ship = new THREE.Sprite(spriteMat(shipTex)); ship.scale.set(9, 9, 1); scene.add(ship);
+  const ship = new THREE.Sprite(spriteMat(shipTex)); ship.scale.set(3.8, 3.8, 1); scene.add(ship);
   let face = 1;
 
   // Asteroids as obstacles.
   const obstacles = [], rocks = [], rockMat = std(0x5a5f8a);
   let tries = 0;
-  while (obstacles.length < 40 && tries++ < 600) {
+  while (obstacles.length < 22 && tries++ < 600) {
     const x = (Math.random() - 0.5) * 108, z = (Math.random() - 0.5) * 108;
     if (Math.hypot(x, z) < 9 || Math.hypot(x, z + 12) < 7 || ZONES.some((q) => Math.hypot(x - q.x, z - q.z) < 9) || obstacles.some((o) => Math.hypot(x - o.x, z - o.z) < 4)) continue;
     const s = 0.8 + Math.random() * 1.2, r = new THREE.Sprite(cometMat);
-    r.position.set(x, 2.5 + Math.random() * 2, z); r.scale.set(s * 3.2, s * 5.7, 1); r.userData.y = r.position.y; scene.add(r);
-    rocks.push(r); obstacles.push({ x, z, r: s * 0.9 });
+    r.position.set(x, 2.5 + Math.random() * 2, z); r.scale.set(s * 1.1, s * 1.95, 1); r.userData.y = r.position.y; scene.add(r);
+    rocks.push(r); obstacles.push({ x, z, r: s * 0.7 });
   }
 
   // Home planet: your Earth image (client/public/earth.jpg), cropped to the globe and faded into space.
@@ -181,9 +184,9 @@ function build(d) {
   };
   paint();
   const me = new Image(); me.onload = () => paint(me); me.src = BASE + 'me.jpg';
-  const board = new THREE.Mesh(new THREE.PlaneGeometry(8, 10), new THREE.MeshBasicMaterial({ map: btex, transparent: true }));
-  board.position.set(0, 7, -12); scene.add(board);
-  if (!reduce) gsap.to(board.position, { y: 7.8, duration: 2.5, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  const board = new THREE.Mesh(new THREE.PlaneGeometry(7, 8.75), new THREE.MeshBasicMaterial({ map: btex, transparent: true }));
+  board.position.set(0, 4.8, -12); scene.add(board);
+  if (!reduce) gsap.to(board.position, { y: 5.4, duration: 2.5, yoyo: true, repeat: -1, ease: 'sine.inOut' });
 
   // Each section is a planet inside a glowing landing ring.
   ZONES.forEach((z, i) => {
@@ -210,7 +213,7 @@ function build(d) {
   const cc = document.createElement('canvas'); cc.width = 240; cc.height = 427;
   const ctex = new THREE.CanvasTexture(cc); ctex.colorSpace = THREE.SRGBColorSpace;
   const comet = new THREE.Sprite(new THREE.SpriteMaterial({ map: ctex, transparent: true, opacity: 0, depthWrite: false, fog: false }));
-  comet.scale.set(12, 21, 1); scene.add(comet);
+  comet.scale.set(7, 12.5, 1); scene.add(comet);
   const cimg = new Image();
   cimg.onload = () => {
     const x = cc.getContext('2d'); x.drawImage(cimg, 0, 0, 240, 427);
@@ -288,7 +291,7 @@ function build(d) {
     const tt = clock.elapsedTime;
     rocks.forEach((r, i) => { r.position.y = r.userData.y + Math.sin(tt * 0.8 + i) * 0.35; });
     if (st) face += ((st < 0 ? -1 : 1) - face) * Math.min(1, dt * 8);
-    ship.scale.x = 9 * face; ship.position.set(car.x, 2 + Math.sin(tt * 2.2) * 0.25, car.z);
+    ship.scale.x = 3.8 * face; ship.position.set(car.x, 1.6 + Math.sin(tt * 2.2) * 0.15, car.z);
     ship.material.rotation = -st * 0.25 * Math.sign(face) * Math.min(1, Math.abs(car.speed) / 8);
     rig.position.set(car.x, 0, car.z); rig.rotation.y = car.h;
     body.rotation.z = -st * Math.abs(car.speed) * 0.004;
