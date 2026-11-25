@@ -35,17 +35,18 @@ async function load() {
 function section(k, d) {
   const p = d.profile;
   const body = {
-    about: () => `<img class="me" src="${BASE}me.jpg" alt="Pravesh Bahadur Shahi" width="96" height="96" onerror="this.remove()"><p>${esc(p.summary)}</p>${tags(d.strengths)}`,
+    about: () => `<img src="${BASE}planets.jpg" alt="" style="width:100%;border-radius:12px;margin-bottom:12px" onerror="this.remove()"><img class="me" src="${BASE}me.jpg" alt="Pravesh Bahadur Shahi" width="96" height="96" onerror="this.remove()"><p>${esc(p.summary)}</p>${tags(d.strengths)}`,
     education: () => d.education.map((e) => `<div class="row"><b>${esc(e.degree)}</b><span>${esc(e.school)}</span><em>${esc(e.period)}</em></div>`).join(''),
     skills: () => d.skills.map((g) => `<div class="group"><h3>${esc(g.group)}</h3>${tags(g.items)}</div>`).join(''),
     projects: () => d.projects.map((x) => `<article><h3>${esc(x.title)}</h3>${shot(x.title)}${tags(x.tech)}<p>${esc(x.description)}</p><ul>${x.points.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></article>`).join(''),
-    contact: () => `<p>${esc(d.languages.join(' / '))}</p><div class="links"><a href="mailto:${esc(p.email)}">${esc(p.email)}</a><a href="tel:${esc(p.phone)}">${esc(p.phone)}</a><a href="${esc(p.github)}" target="_blank" rel="noopener">GitHub</a><a href="${esc(p.linkedin)}" target="_blank" rel="noopener">LinkedIn</a></div>`,
+    contact: () => `<img src="${BASE}spaceship.png" alt="" width="120" height="120" style="border-radius:50%" onerror="this.remove()"><p>${esc(d.languages.join(' / '))}</p><div class="links"><a href="mailto:${esc(p.email)}">${esc(p.email)}</a><a href="tel:${esc(p.phone)}">${esc(p.phone)}</a><a href="${esc(p.github)}" target="_blank" rel="noopener">GitHub</a><a href="${esc(p.linkedin)}" target="_blank" rel="noopener">LinkedIn</a></div>`,
   }[k]();
   return `<h2>${TITLES[k]}</h2>${body}`;
 }
 
 async function main() {
-  document.body.insertAdjacentHTML('afterbegin', '<div id="loader"><b id="count">000</b></div>');
+  document.body.insertAdjacentHTML('afterbegin', `<div id="loader"><img id="lship" src="${BASE}spaceship.png" alt="" width="140" height="140" style="border-radius:50%;margin-bottom:16px" onerror="this.remove()"><b id="count">000</b></div>`);
+  if (!reduce) gsap.to('#lship', { y: -14, rotation: -4, duration: 1.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
   const count = { v: 0 };
   const show = () => ($('count').textContent = String(Math.round(count.v)).padStart(3, '0'));
   const crawl = gsap.to(count, { v: 90, duration: 2.5, ease: 'power1.out', onUpdate: show });
@@ -168,6 +169,32 @@ function build(d) {
       gsap.to(ring.scale, { x: 1.1, z: 1.1, duration: 1.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
     }
   });
+
+  // Comets: your comet image (client/public/comet.png) with its dark background keyed out.
+  const cc = document.createElement('canvas'); cc.width = 240; cc.height = 427;
+  const ctex = new THREE.CanvasTexture(cc); ctex.colorSpace = THREE.SRGBColorSpace;
+  const comet = new THREE.Sprite(new THREE.SpriteMaterial({ map: ctex, transparent: true, opacity: 0, depthWrite: false, fog: false }));
+  comet.scale.set(12, 21, 1); scene.add(comet);
+  const cimg = new Image();
+  cimg.onload = () => {
+    const x = cc.getContext('2d'); x.drawImage(cimg, 0, 0, 240, 427);
+    const px = x.getImageData(0, 0, 240, 427), a = px.data;
+    for (let i = 0; i < a.length; i += 4) a[i + 3] = clamp((a[i] - a[i + 2] + 10) / 60, 0, 1) * 255;
+    x.putImageData(px, 0, 0); ctex.needsUpdate = true;
+  };
+  cimg.src = BASE + 'comet.png';
+  const cf = new THREE.Vector3(), cr = new THREE.Vector3(), cu = new THREE.Vector3();
+  function flyComet() {
+    camera.getWorldDirection(cf); cr.crossVectors(cf, camera.up).normalize(); cu.crossVectors(cr, cf).normalize();
+    const from = camera.position.clone().addScaledVector(cf, 90).addScaledVector(cr, 40 + Math.random() * 20).addScaledVector(cu, 20 + Math.random() * 15);
+    const to = from.clone().addScaledVector(cr, -110).addScaledVector(cu, -65);
+    comet.position.copy(from);
+    gsap.timeline({ onComplete: () => gsap.delayedCall(6 + Math.random() * 8, flyComet) })
+      .to(comet.position, { x: to.x, y: to.y, z: to.z, duration: 4, ease: 'none' }, 0)
+      .to(comet.material, { opacity: 1, duration: 0.5 }, 0)
+      .to(comet.material, { opacity: 0, duration: 0.8 }, 3.2);
+  }
+  if (!reduce) gsap.delayedCall(4, flyComet);
 
   const panel = $('panel');
   let active = null;
