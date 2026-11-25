@@ -69,12 +69,12 @@ async function main() {
 }
 
 function build(d) {
-  const renderer = new THREE.WebGLRenderer({ canvas: $('bg'), antialias: true });
+  const renderer = new THREE.WebGLRenderer({ canvas: $('bg'), antialias: true, alpha: true });
+  $('bg').style.background = `#050a1f url(${BASE}star.jpg) center / cover no-repeat`;
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x02030a);
-  scene.fog = new THREE.Fog(0x02030a, 90, 240);
+  scene.fog = new THREE.Fog(0x050a1f, 90, 240);
   const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 300);
   camera.position.set(0, 70, 40);
   const resize = () => { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); };
@@ -175,15 +175,15 @@ function build(d) {
     bx.fillStyle = 'rgba(12,16,56,.92)'; bx.beginPath(); bx.roundRect(8, 8, 496, 624, 40); bx.fill();
     bx.strokeStyle = '#8ea2ff'; bx.lineWidth = 6; bx.stroke();
     if (img) { bx.save(); bx.beginPath(); bx.arc(256, 230, 170, 0, 7); bx.clip(); const s = Math.max(340 / img.width, 340 / img.height); bx.drawImage(img, 256 - (img.width * s) / 2, 230 - (img.height * s) / 2, img.width * s, img.height * s); bx.restore(); }
-    bx.textAlign = 'center'; bx.fillStyle = '#f1efe9'; bx.font = '700 54px Syne, sans-serif'; bx.fillText("Hi, I'm Pravesh", 256, 500);
-    bx.fillStyle = '#8ea2ff'; bx.font = '400 26px Manrope, sans-serif'; bx.fillText('BSc.IT student | Software Engineer', 256, 550); bx.fillText('Fly on. Press H for a beep.', 256, 595);
+    bx.textAlign = 'center'; bx.fillStyle = '#f1efe9'; bx.font = '700 46px Syne, sans-serif'; bx.fillText("Hi, I'm Pravesh", 256, 500, 440);
+    bx.fillStyle = '#8ea2ff'; bx.font = '400 28px Manrope, sans-serif'; bx.fillText('BSc.IT student | Software Engineer', 256, 550, 440); bx.fillText('Fly on. Press H for a beep.', 256, 595, 440);
     btex.needsUpdate = true;
   };
   paint();
   const me = new Image(); me.onload = () => paint(me); me.src = BASE + 'me.jpg';
-  const board = new THREE.Mesh(new THREE.PlaneGeometry(6, 7.5), new THREE.MeshBasicMaterial({ map: btex, transparent: true }));
-  board.position.set(0, 6, -12); scene.add(board);
-  if (!reduce) gsap.to(board.position, { y: 6.8, duration: 2.5, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  const board = new THREE.Mesh(new THREE.PlaneGeometry(8, 10), new THREE.MeshBasicMaterial({ map: btex, transparent: true }));
+  board.position.set(0, 7, -12); scene.add(board);
+  if (!reduce) gsap.to(board.position, { y: 7.8, duration: 2.5, yoyo: true, repeat: -1, ease: 'sine.inOut' });
 
   // Each section is a planet inside a glowing landing ring.
   ZONES.forEach((z, i) => {
@@ -191,12 +191,12 @@ function build(d) {
     const ring = new THREE.Mesh(new THREE.RingGeometry(3.6, 4.4, 48).rotateX(-Math.PI / 2), m({ opacity: 0.9 }));
     const disc = new THREE.Mesh(new THREE.CircleGeometry(3.6, 48).rotateX(-Math.PI / 2), m({ opacity: 0.12 }));
     const planet = new THREE.Sprite(spriteMat(planetTex(PLANET_CROPS[i % PLANET_CROPS.length])));
-    planet.scale.set(9, 9, 1); planet.position.y = 4.4;
+    planet.scale.set(10, 10, 1); planet.position.y = 4.4;
     const orbit = new THREE.Mesh(new THREE.RingGeometry(3.2, 3.35, 64).rotateX(-1.2), m({ opacity: 0.55 })); orbit.position.y = 4;
-    const cv = document.createElement('canvas'); cv.width = 512; cv.height = 128;
-    const cx = cv.getContext('2d'); cx.fillStyle = '#f1efe9'; cx.font = '700 58px Syne, sans-serif'; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.fillText(TITLES[z.k], 256, 64);
+    const cv = document.createElement('canvas'); cv.width = 1024; cv.height = 192;
+    const cx = cv.getContext('2d'); cx.fillStyle = '#f1efe9'; cx.font = '700 84px Syne, sans-serif'; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.shadowColor = '#000'; cx.shadowBlur = 12; cx.fillText(TITLES[z.k], 512, 96, 960);
     const label = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, fog: false }));
-    label.scale.set(9, 2.25, 1); label.position.y = 8.6;
+    label.scale.set(14, 2.63, 1); label.position.y = 10;
     const g = new THREE.Group(); ring.position.y = disc.position.y = 0.04;
     g.add(ring, disc, planet, orbit, label); g.position.set(z.x, 0, z.z); scene.add(g);
     if (!reduce) {
