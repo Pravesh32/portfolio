@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import gsap from 'gsap';
 import './style.css';
+import './responsive.css';
 import { initAudio, setEngine, sfx, toggleMute } from './sound.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -71,13 +72,20 @@ async function main() {
 function build(d) {
   const renderer = new THREE.WebGLRenderer({ canvas: $('bg'), antialias: true, alpha: true });
   $('bg').style.background = `#050a1f url(${BASE}star.jpg) center top / cover no-repeat`;
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, coarse ? 1.5 : 2));
   renderer.shadowMap.enabled = true;
   const scene = new THREE.Scene();
   scene.fog = new THREE.Fog(0x050a1f, 90, 240);
   const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 300);
   camera.position.set(0, 70, 40);
-  const resize = () => { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); };
+  // Portrait screens see less sideways, so pull the camera back and enlarge labels and ship to stay readable.
+  const labels = []; let zoom = 1, ui = 1;
+  const resize = () => {
+    renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight;
+    zoom = clamp(1.35 / camera.aspect, 1, 2.4); ui = Math.min(zoom, 1.7);
+    labels.forEach((l) => l.scale.set(14 * ui, 2.63 * ui, 1));
+    camera.updateProjectionMatrix();
+  };
   addEventListener('resize', resize); resize();
 
   scene.add(new THREE.HemisphereLight(0xaab8ff, 0x1a1030, 1.2));
@@ -199,7 +207,7 @@ function build(d) {
     const cv = document.createElement('canvas'); cv.width = 1024; cv.height = 192;
     const cx = cv.getContext('2d'); cx.fillStyle = '#f1efe9'; cx.font = '700 84px Syne, sans-serif'; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.shadowColor = '#000'; cx.shadowBlur = 12; cx.fillText(TITLES[z.k], 512, 96, 960);
     const label = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, fog: false }));
-    label.scale.set(14, 2.63, 1); label.position.y = 10;
+    label.scale.set(14 * ui, 2.63 * ui, 1); label.position.y = 10; labels.push(label);
     const g = new THREE.Group(); ring.position.y = disc.position.y = 0.04;
     g.add(ring, disc, planet, orbit, label); g.position.set(z.x, 0, z.z); scene.add(g);
     if (!reduce) {
@@ -291,14 +299,14 @@ function build(d) {
     const tt = clock.elapsedTime;
     rocks.forEach((r, i) => { r.position.y = r.userData.y + Math.sin(tt * 0.8 + i) * 0.35; });
     if (st) face += ((st < 0 ? -1 : 1) - face) * Math.min(1, dt * 8);
-    ship.scale.x = 3.8 * face; ship.position.set(car.x, 1.6 + Math.sin(tt * 2.2) * 0.15, car.z);
+    ship.scale.set(3.8 * ui * face, 3.8 * ui, 1); ship.position.set(car.x, 1.6 + Math.sin(tt * 2.2) * 0.15, car.z);
     ship.material.rotation = -st * 0.25 * Math.sign(face) * Math.min(1, Math.abs(car.speed) / 8);
     rig.position.set(car.x, 0, car.z); rig.rotation.y = car.h;
     body.rotation.z = -st * Math.abs(car.speed) * 0.004;
     wheels.forEach((w) => { w.rotation.x += car.speed * dt * 2.2; });
     sun.target.position.set(car.x, 0, car.z); sun.position.set(car.x + 20, 30, car.z + 10);
     const fx = Math.sin(car.h), fz = Math.cos(car.h);
-    cam.set(car.x - fx * 11, 7.5, car.z - fz * 11);
+    cam.set(car.x - fx * 11 * zoom, 7.5 * zoom, car.z - fz * 11 * zoom);
     camera.position.lerp(cam, 1 - Math.exp(-dt * 3));
     camera.fov = 55 + (Math.abs(car.speed) / 18) * 14; camera.updateProjectionMatrix();
     camera.lookAt(car.x + fx * 3, 1, car.z + fz * 3);
