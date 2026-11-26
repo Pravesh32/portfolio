@@ -75,25 +75,9 @@ article li::marker { color: var(--rose); }
 #read .x { position: fixed; top: 1.2rem; right: 1.4rem; width: 2.6rem; height: 2.6rem; font-size: 1.6rem; }
 
 @media (max-width: 700px) {
-  .hud { top: .9rem; left: .9rem; max-width: 54vw; }
-  .hud b { font-size: 1.1rem; }
-  .hud span { font-size: .78rem; margin: .15rem 0 .35rem; }
-  .hud p { font-size: .72rem; line-height: 1.4; }
-  .readbtn { top: .9rem; right: .9rem; padding: .3rem .8rem; font-size: .78rem; }
-  .sndbtn { right: .9rem; top: 3.1rem; }
-  .jump { left: 0; right: 0; bottom: calc(.8rem + env(safe-area-inset-bottom)); max-width: none; flex-wrap: nowrap; overflow-x: auto; padding: .1rem .9rem; scrollbar-width: none; }
-  .jump button { flex: none; white-space: nowrap; }
-  #panel { top: auto; left: .6rem; right: .6rem; bottom: calc(3.6rem + env(safe-area-inset-bottom)); width: auto; max-height: 46vh; max-height: 46dvh; padding: 1.3rem 1.2rem; border-radius: 20px; }
-  #panel::before { content: ''; position: sticky; top: 0; display: block; width: 2.6rem; height: 4px; margin: -.6rem auto .8rem; border-radius: 4px; background: var(--line); }
-  h2 { font-size: 1.7rem; margin-bottom: 1.1rem; }
-  .me { width: 84px; height: 84px; }
-  #read { padding: 4.5rem 1.2rem 3rem; }
-  #loader::before { top: 1.2rem; left: 1.2rem; }
+  .hud p, .jump { display: none; }
+  .sndbtn { right: 1.4rem; top: 3.6rem; }
+  #panel { top: auto; left: .8rem; right: .8rem; bottom: .8rem; width: auto; max-height: 52vh; border-radius: 22px 22px 18px 18px; }
+  #panel::before { content: ''; position: sticky; top: 0; display: block; width: 2.6rem; height: 4px; margin: -.8rem auto .9rem; border-radius: 4px; background: var(--line); }
 }
-@media (max-height: 520px) and (orientation: landscape) {
-  .hud p { display: none; }
-  #panel { top: .8rem; bottom: .8rem; width: min(22rem, 48vw); }
-  .jump { max-width: 46vw; }
-}
-@media (min-width: 701px) and (max-width: 1024px) { #panel { width: min(24rem, 46vw); } .hud p { max-width: 16rem; } }
 @media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
