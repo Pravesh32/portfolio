@@ -187,7 +187,7 @@ function build(d) {
     bx.strokeStyle = '#8ea2ff'; bx.lineWidth = 6; bx.stroke();
     if (img) { bx.save(); bx.beginPath(); bx.arc(256, 230, 170, 0, 7); bx.clip(); const s = Math.max(340 / img.width, 340 / img.height); bx.drawImage(img, 256 - (img.width * s) / 2, 230 - (img.height * s) / 2, img.width * s, img.height * s); bx.restore(); }
     bx.textAlign = 'center'; bx.fillStyle = '#f1efe9'; bx.font = '700 46px Syne, sans-serif'; bx.fillText("Hi, I'm Pravesh", 256, 500, 440);
-    bx.fillStyle = '#8ea2ff'; bx.font = '400 28px Manrope, sans-serif'; bx.fillText('BSc.IT student | Software Engineer', 256, 550, 440); bx.fillText('Fly on. Press H for a beep.', 256, 595, 440);
+    bx.fillStyle = '#8ea2ff'; bx.font = '400 28px Manrope, sans-serif'; bx.fillText('BSc.IT student | Mobile Application Developer', 256, 550, 440); bx.fillText('Fly on. Press H for a beep.', 256, 595, 440);
     btex.needsUpdate = true;
   };
   paint();
