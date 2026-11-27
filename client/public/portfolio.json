@@ -1,14 +1,14 @@
-
 {
   "profile": {
     "name": "Pravesh Bahadur Shahi",
-    "title": "Bsc.IT Student | Mobile Application Developer",
-    "location": "Nepal",
+    "title": "Bsc.IT student and Mobile Application Developer",
+    "location": "Kathmandu, Nepal",
     "email": "shahipravesh36@gmail.com",
     "phone": "9748316680",
     "github": "https://github.com/Pravesh32",
     "linkedin": "https://www.linkedin.com/in/pravesh-bahadur-shahi-4347a0302",
-    "summary": "I am a BSc.IT student at Asia Pacific University (Techspire College) and a software developer interested in building practical applications, websites, and interactive digital experiences. I work with JavaScript, React Native, Node.js, MySQL, Python, Java, and modern web technologies. I enjoy learning by building projects, solving problems, and turning ideas into working software. I am currently looking for an opportunity to begin my professional software development career and contribute to real-world projects."
+    "summary": "I am a BSc.IT 6th-semester student at Techspire College, affiliated with Asia Pacific University, and an aspiring mobile application developer with hands-on experience in mobile application development, web technologies, databases, and software development. I enjoy building practical, user-focused mobile applications using React Native, Node.js, XAMPP, and MySQL. During my studies I have built a personalized mental-health mobile application, an e-commerce system, an HRM system, a food delivery application, a voting system, and database-driven applications, using JavaScript, Python, Java, C, HTML, CSS, SQL, and Figma.",
+    "goal": "I am looking for an opportunity to begin my professional career as a Mobile Application Developer / React Native Developer, where I can apply my skills, keep learning, and contribute to real-world software projects."
   },
   "education": [
     {
@@ -29,47 +29,22 @@
   ],
   "skills": [
     {
-      "group": "Frontend Development",
-      "items": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "Responsive Web Design",
-        "UI Development"
-      ]
-    },
-    {
-      "group": "Backend Development",
-      "items": [
-        "Node.js",
-        "Express.js",
-        "REST API Development"
-      ]
-    },
-    {
-      "group": "Database Management",
-      "items": [
-        "MySQL",
-        "SQL Server",
-        "SQL",
-        "Database Design",
-        "Database Relationships",
-        "XAMPP"
-      ]
-    },
-    {
-      "group": "Mobile Application Development",
+      "group": "Mobile & Application Development",
       "items": [
         "React Native",
+        "JavaScript",
+        "Node.js",
         "Mobile UI Development",
-        "App Navigation",
+        "REST API Integration",
+        "Application Navigation",
         "AsyncStorage",
-        "API Integration"
+        "Responsive Mobile Interfaces"
       ]
     },
     {
       "group": "Programming Languages",
       "items": [
+        "JavaScript",
         "Python",
         "Java",
         "C",
@@ -77,11 +52,23 @@
       ]
     },
     {
-      "group": "Game & Interactive Development",
+      "group": "Web Technologies",
       "items": [
-        "Three.js",
+        "HTML",
+        "CSS",
         "JavaScript",
-        "3D Web Development"
+        ".NET"
+      ]
+    },
+    {
+      "group": "Database & Backend",
+      "items": [
+        "MySQL",
+        "XAMPP",
+        "SQL Server",
+        "SQL",
+        "Database Design",
+        "Database Relationships"
       ]
     },
     {
@@ -94,117 +81,49 @@
       ]
     },
     {
-      "group": "Tools & Software",
+      "group": "Development Tools & Software",
       "items": [
-        "VS Code",
-        "Git",
-        "GitHub",
+        "Visual Studio Code",
+        "Git/GitHub",
         "Microsoft Word",
         "Microsoft Excel",
         "Microsoft PowerPoint"
       ]
     },
     {
-      "group": "Software Engineering",
+      "group": "Software Development",
       "items": [
-        "System Analysis & Design",
+        "System Analysis and Design",
         "Agile Principles",
-        "Requirements Analysis",
-        "Object-Oriented Programming",
-        "Problem Solving"
+        "System Development Methodologies",
+        "Software Requirements Analysis",
+        "Database Design",
+        "Network Design"
       ]
     }
   ],
   "projects": [
     {
-      "title": "The Explorer - 3D Exploration Game",
-      "tech": [
-        "JavaScript",
-        "Three.js",
-        "Vite"
-      ],
-      "description": "A peaceful third-person 3D exploration game focused on discovering natural environments, visiting locations, and creating memorable experiences.",
-      "points": [
-        "Built a 3D environment using Three.js",
-        "Implemented a third-person exploration experience",
-        "Experimented with environmental design, lighting, and camera controls",
-        "Developing interactive locations and exploration mechanics"
-      ],
-      "github": "https://github.com/Pravesh32/the-explorer",
-      "demo": "https://the-explorer32.netlify.app/"
-    },
-    {
-      "title": "3D Developer Portfolio",
-      "tech": [
-        "JavaScript",
-        "Three.js",
-        "GSAP",
-        "Vite",
-        "Node.js",
-        "Express.js",
-        "MySQL"
-      ],
-      "description": "An interactive 3D portfolio website presenting my background, technical skills, education, and software development projects.",
-      "points": [
-        "Created an interactive 3D experience with Three.js",
-        "Used GSAP for animations and transitions",
-        "Built a Node.js and Express.js backend API",
-        "Integrated MySQL for portfolio data management",
-        "Added fallback data support when the database is unavailable"
-      ],
-      "github": "https://github.com/Pravesh32/portfolio"
-    },
-    {
-      "title": "MindEase - Personalized Mental Health App",
+      "title": "MindEase - Personalized Mental Health Mobile Application",
       "tech": [
         "React Native",
-        "TypeScript",
         "Node.js",
-        "Express.js",
+        "XAMPP",
         "MySQL"
       ],
-      "description": "An academic mobile application concept designed to support stress management and personal well-being through personalized features.",
+      "description": "A personalized mobile application focused on helping users reduce stress and improve mental well-being.",
       "points": [
-        "Implemented registration and login functionality",
-        "Developed mood tracking features",
-        "Built backend API functionality",
-        "Used MySQL for data storage",
-        "Created mobile screens and navigation"
+        "Developed the mobile application using React Native",
+        "Designed a personalized experience focused on mental well-being rather than gamification",
+        "Implemented user registration and login functionality",
+        "Used Node.js for backend development and API communication",
+        "Used MySQL with XAMPP for data storage and management",
+        "Implemented personalized content and user interaction features",
+        "Designed dynamic application screens and navigation",
+        "Worked on mood tracking and personalized user experiences"
       ],
       "github": "https://github.com/Pravesh32/mindease-backend"
     },
-    {
-      "title": "Taskflow - Task Management System",
-      "tech": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "MySQL"
-      ],
-      "description": "A task management project designed to organize tasks and demonstrate frontend development and database integration.",
-      "points": [
-        "Designed a responsive task management interface",
-        "Implemented task creation and management functionality",
-        "Worked with SQL database concepts",
-        "Organized the project for version control using Git"
-      ]
-    },
-    {
-      "title": "Library Management System",
-      "tech": [
-        "Python",
-        "SQLite"
-      ],
-      "description": "A desktop-oriented library management application for organizing books, users, borrowing records, reservations, and fines.",
-      "points": [
-        "Implemented book and user management",
-        "Managed borrowing and reservation records",
-        "Added fine tracking and payment records",
-        "Used SQLite for persistent data storage"
-      ]
-    }
-  ],
-  "academicProjects": [
     {
       "title": "Tour & Travels E-Commerce System",
       "tech": [
@@ -212,10 +131,12 @@
         ".NET",
         "SQL Server"
       ],
-      "description": "An academic e-commerce system for tours and travel.",
+      "description": "An e-commerce-based tour and travel system built as an academic project.",
       "points": [
-        "Designed application structure and user interface",
-        "Worked with travel data using SQL Server",
+        "Designed the application structure and user interface",
+        "Implemented functionality using C# and .NET",
+        "Used SQL Server for database management",
+        "Designed database operations for travel-related information",
         "Applied object-oriented programming concepts"
       ]
     },
@@ -225,11 +146,12 @@
         "Java",
         "Java RMI"
       ],
-      "description": "A Human Resource Management system demonstrating distributed client-server communication.",
+      "description": "A Human Resource Management system built using Java RMI.",
       "points": [
-        "Implemented Java RMI communication",
-        "Managed human resource information",
-        "Applied distributed application concepts"
+        "Implemented client-server communication using Java RMI",
+        "Applied object-oriented programming concepts",
+        "Designed functionality for managing HR-related information",
+        "Worked with distributed application concepts"
       ]
     },
     {
@@ -237,10 +159,12 @@
       "tech": [
         "Java"
       ],
-      "description": "An academic food ordering application.",
+      "description": "A food delivery application developed as an academic project.",
       "points": [
-        "Designed food ordering functionality",
-        "Implemented ordering workflows and application logic"
+        "Designed application functionality for food ordering",
+        "Implemented core application logic using Java",
+        "Applied object-oriented programming concepts",
+        "Designed user interaction and ordering workflows"
       ]
     },
     {
@@ -248,10 +172,11 @@
       "tech": [
         "Python"
       ],
-      "description": "A menu-driven administrative application.",
+      "description": "An administrative menu-based application built with Python.",
       "points": [
         "Implemented menu-driven functionality",
-        "Used conditional logic and data handling"
+        "Applied Python programming and conditional logic",
+        "Worked with data handling and application flow"
       ]
     },
     {
@@ -259,10 +184,11 @@
       "tech": [
         "C"
       ],
-      "description": "A basic voting application developed using C.",
+      "description": "A voting system developed using C programming.",
       "points": [
-        "Implemented vote recording and processing",
-        "Applied programming fundamentals and control structures"
+        "Implemented voting functionality using C",
+        "Applied programming fundamentals and control structures",
+        "Designed logic for recording and processing votes"
       ]
     },
     {
@@ -270,10 +196,12 @@
       "tech": [
         "Figma"
       ],
-      "description": "An interactive prototype for a digital voting application.",
+      "description": "A prototype for a digital voting application called Votify.",
       "points": [
-        "Designed user flows and interactive screens",
-        "Focused on a simple voting experience"
+        "Designed application interfaces using Figma",
+        "Created user flows and interactive prototypes",
+        "Focused on a simple and user-friendly voting experience",
+        "Applied UI/UX design principles"
       ]
     },
     {
@@ -281,65 +209,82 @@
       "tech": [
         "SQL"
       ],
-      "description": "A database design concept for an online library system.",
+      "description": "A database concept for an online library system for Tribhuvan University.",
       "points": [
-        "Designed database tables and relationships",
-        "Created SQL queries for library information"
+        "Designed database structures and relationships",
+        "Created SQL queries for managing library-related information",
+        "Applied database design and relational database concepts"
       ]
     },
     {
       "title": "IT Company Floor & Network Design",
       "tech": [
-        "Networking",
+        "Computer Networking",
         "Network Design"
       ],
-      "description": "A proposed office floor layout and network infrastructure design.",
+      "description": "The floor layout and network infrastructure design for an IT company.",
       "points": [
-        "Planned connectivity between departments",
-        "Designed network topology and infrastructure"
+        "Designed an organizational floor layout",
+        "Planned network connectivity between departments",
+        "Applied networking concepts to a practical business environment",
+        "Worked with network topology and infrastructure planning"
       ]
     },
     {
       "title": "Learning Management System - Analysis & Design",
       "tech": [
         "System Analysis",
-        "Modeling"
+        "System Modeling"
       ],
-      "description": "An academic analysis and design project for a Learning Management System.",
+      "description": "System analysis and design for a Learning Management System.",
       "points": [
-        "Identified system requirements and user roles",
-        "Designed processes and workflows"
+        "Analyzed system requirements",
+        "Identified users and system functionalities",
+        "Designed system processes and workflows",
+        "Applied system analysis and design methodologies",
+        "Worked with software requirements and system modeling"
       ]
     },
     {
-      "title": "Software Methodologies & Agile Project",
+      "title": "Software Development Methodologies & Agile Project",
       "tech": [
         "Agile",
         "Project Planning"
       ],
-      "description": "An academic project comparing software development methodologies.",
+      "description": "A study of software development methodologies and Agile principles applied to an IT company scenario.",
       "points": [
-        "Compared software development methodologies",
-        "Applied Agile and iterative development concepts"
+        "Analyzed different software development methodologies",
+        "Applied Agile principles to software development",
+        "Studied project planning, team collaboration, and iterative development",
+        "Evaluated suitable methodologies for software projects"
       ]
     }
   ],
   "strengths": [
-    "Software Development",
-    "Frontend Development",
-    "Backend Development",
-    "Database Management",
     "Mobile Application Development",
-    "Game Development",
     "Problem Solving",
     "Logical Thinking",
+    "Database Management",
     "UI/UX Design",
+    "Software Development",
     "System Analysis",
     "Team Collaboration",
-    "Quick Learning"
+    "Quick Learning",
+    "Project-Based Learning"
   ],
   "languages": [
     "Nepali (Native)",
     "English (Professional Working Proficiency)"
+  ],
+  "relevantAreas": [
+    "Mobile Application Development",
+    "Web Development",
+    "Database Management",
+    "Object-Oriented Programming",
+    "System Analysis and Design",
+    "Computer Networking",
+    "Software Development Methodologies",
+    "Agile Principles",
+    "Technical Communication"
   ]
 }

@@ -1,4 +1,3 @@
-
 import * as THREE from 'three';
 import gsap from 'gsap';
 import './style.css';
@@ -26,7 +25,7 @@ const BASE = import.meta.env.BASE_URL;
 const SHOTS = {
   'The Explorer - 3D Exploration Game': 'explorer.png',
   '3D Developer Portfolio': 'portfolio.png',
-  'MindEase - Personalized Mental Health App': 'mindease.png'
+  'MindEase - Personalized Mental Health Mobile Application': 'mindease.png'
 };
 
 const shot = (t) =>
@@ -115,7 +114,10 @@ function section(k, d) {
           <span>${esc(e.school)}</span>
           <em>${esc(e.period)}</em>
         </div>
-      `).join(''),
+      `).join('') +
+      (d.relevantAreas && d.relevantAreas.length
+        ? `<h3>Relevant areas</h3>${tags(d.relevantAreas)}`
+        : ''),
 
     skills: () =>
       d.skills.map((g) => `
@@ -126,21 +128,7 @@ function section(k, d) {
       `).join(''),
 
     projects: () => {
-      // Prioritize mobile application projects.
-      const priority = [
-        'MindEase - Personalized Mental Health App',
-        'Library Management System',
-        'Taskflow - Task Management System',
-        'The Explorer - 3D Exploration Game',
-        '3D Developer Portfolio'
-      ];
-
-      const projects = [...d.projects].sort((a, b) => {
-        const ai = priority.indexOf(a.title);
-        const bi = priority.indexOf(b.title);
-
-        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-      });
+      const projects = d.projects;
 
       return projects.map((x) => `
         <article>
@@ -165,6 +153,7 @@ function section(k, d) {
         onerror="this.remove()"
       >
 
+      ${p.goal ? `<p>${esc(p.goal)}</p>` : ''}
       <p>${esc(d.languages.join(' / '))}</p>
 
       <div class="links">
@@ -238,7 +227,7 @@ async function main() {
 
   // Always use the preferred professional title.
   if (d.profile) {
-    d.profile.title = 'Mobile Application Developer';
+    d.profile.title = 'Bsc.IT student and Mobile Application Developer';
   }
 
   await document.fonts.load('700 64px Syne').catch(() => {});
@@ -248,7 +237,7 @@ async function main() {
   $('app').innerHTML = `
     <div class="hud">
       <b>${esc(p.name)}</b>
-      <span>Mobile Application Developer</span>
+      <span>${esc(p.title)}</span>
       <p>
         ${coarse
           ? 'Drag on the screen to fly'
@@ -797,7 +786,7 @@ function build(d) {
     bx.font = '400 28px Manrope, sans-serif';
 
     bx.fillText(
-      'Bsc.IT student | Mobile Application Developer',
+      'Bsc.IT student and Mobile Application Developer',
       256,
       550,
       460

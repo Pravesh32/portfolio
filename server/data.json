@@ -1,70 +1,50 @@
-
 {
   "profile": {
     "name": "Pravesh Bahadur Shahi",
-    "title": "Bsc.IT student | Mobile Application Developer",
+    "title": "Bsc.IT student and Mobile Application Developer",
     "location": "Kathmandu, Nepal",
     "email": "shahipravesh36@gmail.com",
     "phone": "9748316680",
     "github": "https://github.com/Pravesh32",
     "linkedin": "https://www.linkedin.com/in/pravesh-bahadur-shahi-4347a0302",
-    "summary": "I am a Bsc.IT student and a mobile application developer with practical experience building mobile applications and software projects. I work with React Native, JavaScript, TypeScript, Node.js, and MySQL to develop user-focused applications, connect mobile interfaces with backend APIs, and manage application data. I also have experience with Python, Java, web technologies, databases, and interactive 3D development. I enjoy solving problems, learning new technologies, and turning ideas into practical software."
+    "summary": "I am a BSc.IT 6th-semester student at Techspire College, affiliated with Asia Pacific University, and an aspiring mobile application developer with hands-on experience in mobile application development, web technologies, databases, and software development. I enjoy building practical, user-focused mobile applications using React Native, Node.js, XAMPP, and MySQL. During my studies I have built a personalized mental-health mobile application, an e-commerce system, an HRM system, a food delivery application, a voting system, and database-driven applications, using JavaScript, Python, Java, C, HTML, CSS, SQL, and Figma.",
+    "goal": "I am looking for an opportunity to begin my professional career as a Mobile Application Developer / React Native Developer, where I can apply my skills, keep learning, and contribute to real-world software projects."
   },
   "education": [
     {
-      "degree": "BSc.IT",
       "school": "Techspire College, affiliated with Asia Pacific University",
-      "period": "2023 - 2026"
+      "degree": "BSc.IT",
+      "period": "2023-2026"
     },
     {
+      "school": "Goldengate International College",
       "degree": "+2 Science (Biology)",
-      "school": "GoldenGate International College",
-      "period": "2020 - 2022"
+      "period": "2020-2022"
     },
     {
-      "degree": "SEE",
       "school": "Tribhuvan Model Secondary School",
+      "degree": "SEE",
       "period": "2020"
     }
   ],
   "skills": [
     {
-      "group": "Mobile Application Development",
+      "group": "Mobile & Application Development",
       "items": [
         "React Native",
-        "TypeScript",
         "JavaScript",
+        "Node.js",
         "Mobile UI Development",
+        "REST API Integration",
         "Application Navigation",
         "AsyncStorage",
-        "REST API Integration"
-      ]
-    },
-    {
-      "group": "Backend Development",
-      "items": [
-        "Node.js",
-        "Express.js",
-        "REST API Development",
-        "XAMPP"
-      ]
-    },
-    {
-      "group": "Database Management",
-      "items": [
-        "MySQL",
-        "SQLite",
-        "Microsoft SQL Server",
-        "SQL",
-        "Database Design",
-        "Database Relationships"
+        "Responsive Mobile Interfaces"
       ]
     },
     {
       "group": "Programming Languages",
       "items": [
         "JavaScript",
-        "TypeScript",
         "Python",
         "Java",
         "C",
@@ -81,16 +61,18 @@
       ]
     },
     {
-      "group": "Game and 3D Development",
+      "group": "Database & Backend",
       "items": [
-        "Three.js",
-        "3D Web Development",
-        "JavaScript",
-        "Vite"
+        "MySQL",
+        "XAMPP",
+        "SQL Server",
+        "SQL",
+        "Database Design",
+        "Database Relationships"
       ]
     },
     {
-      "group": "UI/UX Design",
+      "group": "Design & Prototyping",
       "items": [
         "Figma",
         "Canva",
@@ -99,138 +81,210 @@
       ]
     },
     {
-      "group": "Tools and Software",
+      "group": "Development Tools & Software",
       "items": [
         "Visual Studio Code",
-        "Git",
-        "GitHub",
+        "Git/GitHub",
         "Microsoft Word",
         "Microsoft Excel",
         "Microsoft PowerPoint"
       ]
     },
     {
-      "group": "Software Engineering",
+      "group": "Software Development",
       "items": [
-        "Object-Oriented Programming",
         "System Analysis and Design",
-        "Software Requirements Analysis",
         "Agile Principles",
-        "Software Development Methodologies",
+        "System Development Methodologies",
+        "Software Requirements Analysis",
+        "Database Design",
         "Network Design"
       ]
     }
   ],
   "projects": [
     {
-      "title": "MindEase - Personalized Mental Health App",
+      "title": "MindEase - Personalized Mental Health Mobile Application",
       "tech": [
         "React Native",
-        "TypeScript",
         "Node.js",
-        "Express.js",
+        "XAMPP",
         "MySQL"
       ],
-      "description": "An academic mobile application concept designed to help users manage stress and improve mental well-being through personalized features.",
+      "description": "A personalized mobile application focused on helping users reduce stress and improve mental well-being.",
       "points": [
-        "Developed mobile application screens using React Native and TypeScript.",
-        "Implemented user registration and login functionality.",
-        "Connected the mobile application with a Node.js backend.",
-        "Used MySQL for application data storage and management.",
-        "Worked on mood tracking and personalized user experiences.",
-        "Designed application navigation and user interfaces."
+        "Developed the mobile application using React Native",
+        "Designed a personalized experience focused on mental well-being rather than gamification",
+        "Implemented user registration and login functionality",
+        "Used Node.js for backend development and API communication",
+        "Used MySQL with XAMPP for data storage and management",
+        "Implemented personalized content and user interaction features",
+        "Designed dynamic application screens and navigation",
+        "Worked on mood tracking and personalized user experiences"
+      ],
+      "github": "https://github.com/Pravesh32/mindease-backend"
+    },
+    {
+      "title": "Tour & Travels E-Commerce System",
+      "tech": [
+        "C#",
+        ".NET",
+        "SQL Server"
+      ],
+      "description": "An e-commerce-based tour and travel system built as an academic project.",
+      "points": [
+        "Designed the application structure and user interface",
+        "Implemented functionality using C# and .NET",
+        "Used SQL Server for database management",
+        "Designed database operations for travel-related information",
+        "Applied object-oriented programming concepts"
       ]
     },
     {
-      "title": "Library Management System",
+      "title": "HRM System",
       "tech": [
-        "Python",
-        "SQLite"
+        "Java",
+        "Java RMI"
       ],
-      "description": "A desktop-based library management application for organizing books, users, borrowing activities, and library records.",
+      "description": "A Human Resource Management system built using Java RMI.",
       "points": [
-        "Developed the application using Python.",
-        "Implemented book and user management.",
-        "Created borrowing and reservation functionality.",
-        "Managed fine records and payment information.",
-        "Used SQLite for database storage."
+        "Implemented client-server communication using Java RMI",
+        "Applied object-oriented programming concepts",
+        "Designed functionality for managing HR-related information",
+        "Worked with distributed application concepts"
       ]
     },
     {
-      "title": "Taskflow - Task Management System",
+      "title": "Food Delivery Application",
       "tech": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "MySQL"
+        "Java"
       ],
-      "description": "A task management project focused on organizing and managing tasks through a simple web interface.",
+      "description": "A food delivery application developed as an academic project.",
       "points": [
-        "Designed a user-friendly task management interface.",
-        "Implemented task creation and management features.",
-        "Practiced JavaScript application logic.",
-        "Worked with SQL and database concepts.",
-        "Developed the project as part of my software development portfolio."
+        "Designed application functionality for food ordering",
+        "Implemented core application logic using Java",
+        "Applied object-oriented programming concepts",
+        "Designed user interaction and ordering workflows"
       ]
     },
     {
-      "title": "The Explorer - 3D Exploration Game",
+      "title": "Admin Menu System",
       "tech": [
-        "JavaScript",
-        "Three.js",
-        "Vite"
+        "Python"
       ],
-      "description": "A 3D exploration game prototype focused on creating an interactive world where players can explore natural environments and discover places.",
+      "description": "An administrative menu-based application built with Python.",
       "points": [
-        "Created a 3D environment using Three.js.",
-        "Developed forest and lake environments.",
-        "Worked on third-person camera movement.",
-        "Experimented with interactive locations and exploration mechanics.",
-        "Developed the prototype using Vite and JavaScript."
+        "Implemented menu-driven functionality",
+        "Applied Python programming and conditional logic",
+        "Worked with data handling and application flow"
       ]
     },
     {
-      "title": "3D Developer Portfolio",
+      "title": "Voting System",
       "tech": [
-        "JavaScript",
-        "Three.js",
-        "GSAP",
-        "Vite",
-        "Node.js",
-        "Express.js",
-        "MySQL"
+        "C"
       ],
-      "description": "An interactive 3D portfolio website designed to present my profile, education, technical skills, and development projects through a space-themed experience.",
+      "description": "A voting system developed using C programming.",
       "points": [
-        "Created an interactive 3D environment using Three.js.",
-        "Implemented smooth animations using GSAP.",
-        "Developed keyboard-based spaceship navigation.",
-        "Built portfolio sections for education, skills, projects, and contact information.",
-        "Integrated a Node.js and Express.js backend.",
-        "Used MySQL for portfolio data management.",
-        "Deployed the website using Netlify."
+        "Implemented voting functionality using C",
+        "Applied programming fundamentals and control structures",
+        "Designed logic for recording and processing votes"
+      ]
+    },
+    {
+      "title": "Votify - UI/UX Prototype",
+      "tech": [
+        "Figma"
+      ],
+      "description": "A prototype for a digital voting application called Votify.",
+      "points": [
+        "Designed application interfaces using Figma",
+        "Created user flows and interactive prototypes",
+        "Focused on a simple and user-friendly voting experience",
+        "Applied UI/UX design principles"
+      ]
+    },
+    {
+      "title": "TU Online Library Database",
+      "tech": [
+        "SQL"
+      ],
+      "description": "A database concept for an online library system for Tribhuvan University.",
+      "points": [
+        "Designed database structures and relationships",
+        "Created SQL queries for managing library-related information",
+        "Applied database design and relational database concepts"
+      ]
+    },
+    {
+      "title": "IT Company Floor & Network Design",
+      "tech": [
+        "Computer Networking",
+        "Network Design"
+      ],
+      "description": "The floor layout and network infrastructure design for an IT company.",
+      "points": [
+        "Designed an organizational floor layout",
+        "Planned network connectivity between departments",
+        "Applied networking concepts to a practical business environment",
+        "Worked with network topology and infrastructure planning"
+      ]
+    },
+    {
+      "title": "Learning Management System - Analysis & Design",
+      "tech": [
+        "System Analysis",
+        "System Modeling"
+      ],
+      "description": "System analysis and design for a Learning Management System.",
+      "points": [
+        "Analyzed system requirements",
+        "Identified users and system functionalities",
+        "Designed system processes and workflows",
+        "Applied system analysis and design methodologies",
+        "Worked with software requirements and system modeling"
+      ]
+    },
+    {
+      "title": "Software Development Methodologies & Agile Project",
+      "tech": [
+        "Agile",
+        "Project Planning"
+      ],
+      "description": "A study of software development methodologies and Agile principles applied to an IT company scenario.",
+      "points": [
+        "Analyzed different software development methodologies",
+        "Applied Agile principles to software development",
+        "Studied project planning, team collaboration, and iterative development",
+        "Evaluated suitable methodologies for software projects"
       ]
     }
   ],
   "strengths": [
     "Mobile Application Development",
-    "Software Development",
     "Problem Solving",
     "Logical Thinking",
-    "Mobile UI Development",
-    "API Integration",
-    "Backend Development",
     "Database Management",
-    "Frontend Development",
-    "Game Development",
-    "3D Web Development",
     "UI/UX Design",
+    "Software Development",
     "System Analysis",
+    "Team Collaboration",
     "Quick Learning",
     "Project-Based Learning"
   ],
   "languages": [
     "Nepali (Native)",
     "English (Professional Working Proficiency)"
+  ],
+  "relevantAreas": [
+    "Mobile Application Development",
+    "Web Development",
+    "Database Management",
+    "Object-Oriented Programming",
+    "System Analysis and Design",
+    "Computer Networking",
+    "Software Development Methodologies",
+    "Agile Principles",
+    "Technical Communication"
   ]
 }
