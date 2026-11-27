@@ -1,223 +1,224 @@
+
 {
- "profile": {
-  "name": "Pravesh Bahadur Shahi",
-  "title": "BSc.IT Student | Software Engineer",
-  "location": "Kathmandu, Nepal",
-  "email": "shahipravesh36@gmail.com",
-  "phone": "9748316680",
-  "github": "https://github.com/Pravesh32",
-  "linkedin": "https://www.linkedin.com/in/pravesh-bahadur-shahi-4347a0302",
-  "summary": "I am a BSc.IT student at Asia Pacific University (Techspire College) with hands-on experience in software development, web technologies, mobile applications, databases, and interactive 3D experiences. I enjoy building practical applications and solving real-world problems using JavaScript, React Native, Node.js, MySQL, Python, and other technologies. I am looking for an opportunity to start my professional software development career, contribute to real-world projects, and continue growing as a developer."
- },
- "education": [
-  {
-   "school": "Techspire College, affiliated with Asia Pacific University",
-   "degree": "BSc.IT",
-   "period": "2023-2026"
+  "profile": {
+    "name": "Pravesh Bahadur Shahi",
+    "title": "Junior Mobile Application Developer | Software Developer",
+    "location": "Kathmandu, Nepal",
+    "email": "shahipravesh36@gmail.com",
+    "phone": "9748316680",
+    "github": "https://github.com/Pravesh32",
+    "linkedin": "https://www.linkedin.com/in/pravesh-bahadur-shahi-4347a0302",
+    "summary": "I am a BSc.IT student at Asia Pacific University (Techspire College), focused on mobile application development and software engineering. I have hands-on experience building mobile application interfaces, implementing navigation, integrating REST APIs, managing application data, and working with backend services and databases. I enjoy turning ideas into practical applications and continuously improving my development skills through personal and academic projects. I am seeking an opportunity to begin my professional career as a Mobile Application Developer, contribute to real-world applications, and grow as a software developer."
   },
-  {
-   "school": "Goldengate International College",
-   "degree": "+2 Science (Biology)",
-   "period": "2020-2022"
-  },
-  {
-   "school": "Tribhuvan Model Secondary School",
-   "degree": "SEE",
-   "period": "2020"
-  }
- ],
- "skills": [
-  {
-   "group": "Frontend Development",
-   "items": [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "Responsive Interfaces",
-    "UI Development"
-   ]
-  },
-  {
-   "group": "Backend Development",
-   "items": [
-    "Node.js",
-    "Express.js",
-    "REST API Integration"
-   ]
-  },
-  {
-   "group": "Database & Backend",
-   "items": [
-    "MySQL",
-    "SQL Server",
-    "SQL",
-    "XAMPP",
-    "Database Design",
-    "Database Relationships"
-   ]
-  },
-  {
-   "group": "Mobile & Application Development",
-   "items": [
-    "React Native",
-    "Mobile UI",
-    "App Navigation",
-    "AsyncStorage",
-    "API Integration"
-   ]
-  },
-  {
-   "group": "Programming Languages",
-   "items": [
-    "JavaScript",
-    "Python",
-    "Java",
-    "C",
-    "C#"
-   ]
-  },
-  {
-   "group": "Game & 3D Development",
-   "items": [
-    "Three.js",
-    "JavaScript",
-    "3D Web Development"
-   ]
-  },
-  {
-   "group": "Design & Prototyping",
-   "items": [
-    "Figma",
-    "Canva",
-    "UI/UX Prototyping",
-    "Interface Design"
-   ]
-  },
-  {
-   "group": "Tools & Software",
-   "items": [
-    "VS Code",
-    "Git",
-    "GitHub",
-    "Microsoft Word",
-    "Microsoft Excel",
-    "Microsoft PowerPoint"
-   ]
-  },
-  {
-   "group": "Software Engineering",
-   "items": [
-    "System Analysis & Design",
-    "Agile Principles",
-    "Development Methodologies",
-    "Requirements Analysis",
-    "Network Design",
-    "Object-Oriented Programming"
-   ]
-  }
- ],
- "projects": [
-  {
-   "title": "The Explorer - 3D Exploration Game",
-   "tech": [
-    "JavaScript",
-    "Three.js",
-    "Vite"
-   ],
-   "description": "A third-person 3D exploration game focused on discovering natural environments, visiting interesting locations, and creating memorable experiences.",
-   "points": [
-    "Created a 3D environment using Three.js",
-    "Developed an interactive third-person exploration prototype",
-    "Experimented with lighting, environmental design, and camera controls",
-    "Working toward interactive locations and exploration mechanics"
-   ]
-  },
-  {
-   "title": "3D Developer Portfolio",
-   "tech": [
-    "JavaScript",
-    "Three.js",
-    "GSAP",
-    "Vite",
-    "Node.js",
-    "Express.js",
-    "MySQL"
-   ],
-   "description": "An interactive 3D portfolio website showcasing my background, education, technical skills, and development projects.",
-   "points": [
-    "Created an interactive 3D website using Three.js",
-    "Used GSAP for animations and transitions",
-    "Developed a backend API using Node.js and Express.js",
-    "Integrated MySQL for portfolio data management",
-    "Implemented JSON fallback data support"
-   ]
-  },
-  {
-   "title": "MindEase - Personalized Mental Health App",
-   "tech": [
-    "React Native",
-    "TypeScript",
-    "Node.js",
-    "Express.js",
-    "MySQL"
-   ],
-   "description": "An academic mobile application designed to help users manage stress and improve personal well-being through personalized features.",
-   "points": [
-    "Registration and login functionality",
-    "Mood tracking features",
-    "Backend API development",
-    "MySQL database integration",
-    "Mobile screens and navigation"
-   ]
-  },
-  {
-   "title": "Library Management System",
-   "tech": [
-    "Python",
-    "SQLite"
-   ],
-   "description": "A library management application for organizing books, users, borrowing records, reservations, and fine payments.",
-   "points": [
-    "Book and user management",
-    "Borrowing and reservation management",
-    "Fine tracking and payment records",
-    "SQLite database integration"
-   ]
-  },
-  {
-   "title": "Taskflow - Task Management System",
-   "tech": [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "MySQL"
-   ],
-   "description": "A task management project designed to organize tasks and demonstrate frontend development and database concepts.",
-   "points": [
-    "Designed a task management interface",
-    "Implemented task creation and management functionality",
-    "Worked with SQL database concepts",
-    "Used Git for project version control"
-   ]
-  }
- ],
- "strengths": [
-  "Software Development",
-  "Problem Solving",
-  "Logical Thinking",
-  "Frontend Development",
-  "Backend Development",
-  "Database Management",
-  "Mobile Application Development",
-  "Game Development",
-  "UI/UX Design",
-  "System Analysis",
-  "Team Collaboration",
-  "Quick Learning",
-  "Project-Based Learning"
- ],
- "languages": [
-  "Nepali (Native)",
-  "English (Professional Working Proficiency)"
- ]
+  "education": [
+    {
+      "school": "Techspire College, affiliated with Asia Pacific University",
+      "degree": "BSc.IT",
+      "period": "2023-2026"
+    },
+    {
+      "school": "GoldenGate International College",
+      "degree": "+2 Science (Biology)",
+      "period": "2020-2022"
+    },
+    {
+      "school": "Tribhuvan Model Secondary School",
+      "degree": "SEE",
+      "period": "2020"
+    }
+  ],
+  "skills": [
+    {
+      "group": "Mobile Application Development",
+      "items": [
+        "React Native",
+        "TypeScript",
+        "JavaScript",
+        "Mobile UI Development",
+        "App Navigation",
+        "AsyncStorage",
+        "REST API Integration",
+        "Application State Management"
+      ]
+    },
+    {
+      "group": "Application Architecture & Backend",
+      "items": [
+        "Node.js",
+        "Express.js",
+        "REST API Development",
+        "Client-Server Architecture",
+        "JSON Data Handling",
+        "Authentication Fundamentals"
+      ]
+    },
+    {
+      "group": "Database Management",
+      "items": [
+        "MySQL",
+        "SQLite",
+        "SQL Server",
+        "Database Design",
+        "Database Relationships",
+        "CRUD Operations",
+        "XAMPP"
+      ]
+    },
+    {
+      "group": "Programming Languages",
+      "items": [
+        "JavaScript",
+        "TypeScript",
+        "Python",
+        "Java",
+        "C",
+        "C#"
+      ]
+    },
+    {
+      "group": "Web Technologies",
+      "items": [
+        "HTML",
+        "CSS",
+        "Responsive Web Design",
+        "JavaScript",
+        "Frontend Development"
+      ]
+    },
+    {
+      "group": "Game & 3D Development",
+      "items": [
+        "Three.js",
+        "3D Web Development",
+        "Interactive Experiences"
+      ]
+    },
+    {
+      "group": "Development Tools",
+      "items": [
+        "Visual Studio Code",
+        "Git",
+        "GitHub",
+        "Postman",
+        "Figma",
+        "Canva"
+      ]
+    },
+    {
+      "group": "Software Engineering",
+      "items": [
+        "Object-Oriented Programming",
+        "System Analysis & Design",
+        "Requirements Analysis",
+        "Agile Principles",
+        "Problem Solving",
+        "Application Development"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "MindEase - Mobile Well-being Application",
+      "tech": [
+        "React Native",
+        "TypeScript",
+        "Node.js",
+        "Express.js",
+        "MySQL"
+      ],
+      "description": "An academic mobile application project designed to help users manage stress and improve personal well-being through digital features and personalized experiences.",
+      "points": [
+        "Developed mobile application screens and user interfaces",
+        "Implemented user registration and login functionality",
+        "Designed mood tracking features",
+        "Integrated mobile application with backend REST APIs",
+        "Connected backend services with a MySQL database",
+        "Implemented application navigation and data handling"
+      ]
+    },
+    {
+      "title": "Library Management System",
+      "tech": [
+        "Python",
+        "SQLite"
+      ],
+      "description": "A desktop-based application designed to manage library operations, including books, users, borrowing records, reservations, and fine payments.",
+      "points": [
+        "Implemented book and user management",
+        "Developed borrowing and reservation functionality",
+        "Implemented fine tracking and payment records",
+        "Integrated SQLite for persistent data storage",
+        "Organized application functionality into manageable modules"
+      ]
+    },
+    {
+      "title": "Taskflow - Task Management System",
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "MySQL"
+      ],
+      "description": "A task management application focused on organizing daily tasks and demonstrating application development, data handling, and database integration.",
+      "points": [
+        "Designed a responsive task management interface",
+        "Implemented task creation and management functionality",
+        "Worked with SQL database concepts",
+        "Applied Git for project version control"
+      ]
+    },
+    {
+      "title": "The Explorer - 3D Exploration Game",
+      "tech": [
+        "JavaScript",
+        "Three.js",
+        "Vite"
+      ],
+      "description": "A third-person 3D exploration game prototype focused on discovering natural environments and creating interactive experiences.",
+      "points": [
+        "Created a 3D environment using Three.js",
+        "Developed an interactive third-person exploration prototype",
+        "Experimented with lighting, environmental design, and camera controls",
+        "Exploring interactive locations and gameplay mechanics"
+      ]
+    },
+    {
+      "title": "3D Developer Portfolio",
+      "tech": [
+        "JavaScript",
+        "Three.js",
+        "GSAP",
+        "Vite",
+        "Node.js",
+        "Express.js",
+        "MySQL"
+      ],
+      "description": "An interactive 3D portfolio website showcasing personal information, technical skills, education, and software development projects.",
+      "points": [
+        "Created interactive 3D website elements using Three.js",
+        "Implemented animations and transitions using GSAP",
+        "Developed backend services using Node.js and Express.js",
+        "Integrated MySQL for portfolio data management",
+        "Implemented JSON fallback data support"
+      ]
+    }
+  ],
+  "strengths": [
+    "Mobile Application Development",
+    "Application Development",
+    "Problem Solving",
+    "Logical Thinking",
+    "REST API Integration",
+    "Database Management",
+    "Software Development",
+    "UI/UX Implementation",
+    "System Analysis",
+    "Team Collaboration",
+    "Quick Learning",
+    "Project-Based Learning"
+  ],
+  "languages": [
+    "Nepali (Native)",
+    "English (Professional Working Proficiency)"
+  ]
 }
