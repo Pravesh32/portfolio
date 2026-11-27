@@ -797,7 +797,7 @@ function build(d) {
     bx.font = '400 28px Manrope, sans-serif';
 
     bx.fillText(
-      'Mobile Application Developer',
+      'Bsc.IT student | Mobile Application Developer',
       256,
       550,
       460
